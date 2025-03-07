@@ -202,7 +202,7 @@ func show_toons(start_idx : int) -> void:
 			break
 		
 		var toon = spawned_toons[i]
-		await TaskMgr.delay(0.25)
+		await Task.delay(0.25)
 		toon.show()
 		toon.teleport_in()
 		toon.animator.animation_finished.connect(toon.animator.play.bind('neutral').unbind(1), 4)
@@ -214,7 +214,7 @@ func hide_toons() -> void:
 	var last_toon : Toon
 	for toon in spawned_toons:
 		if not toon.visible: continue
-		await TaskMgr.delay(0.05)
+		await Task.delay(0.05)
 		toon.teleport_out()
 		toon.animator.animation_finished.connect(toon.hide.unbind(1), 4)
 		last_toon = toon
