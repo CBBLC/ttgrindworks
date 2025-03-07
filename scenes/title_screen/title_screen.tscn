@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://cqxrerk1d75to"]
+[gd_scene load_steps=45 format=3 uid="uid://cqxrerk1d75to"]
 
 [ext_resource type="PackedScene" uid="uid://b0d1er4oqiqcn" path="res://objects/general_ui/general_button/general_button.tscn" id="1_6oj83"]
 [ext_resource type="Script" path="res://scenes/title_screen/title_screen.gd" id="1_pgrta"]
@@ -7,6 +7,7 @@
 [ext_resource type="Shader" path="res://scenes/title_screen/hue_shift.gdshader" id="10_ngpco"]
 [ext_resource type="Texture2D" uid="uid://ddcktpjy3gdew" path="res://ui_assets/misc/uiAccessoryDelete_up.png" id="11_iexge"]
 [ext_resource type="PackedScene" uid="uid://dkd6dg5s5uuef" path="res://objects/general_ui/base_panel.tscn" id="11_s4o3l"]
+[ext_resource type="PackedScene" uid="uid://85lbg5hd54yc" path="res://objects/general_ui/scroll_button/scroll_button.tscn" id="11_yvcqw"]
 [ext_resource type="Texture2D" uid="uid://b7ri5sq021cvo" path="res://ui_assets/misc/uiAccessoryDelete_down.png" id="12_nwwc5"]
 [ext_resource type="Texture2D" uid="uid://dn8vndd37lqom" path="res://ui_assets/misc/uiAccessoryDelete_rollover.png" id="13_glcqf"]
 [ext_resource type="FontFile" uid="uid://815gwlftl5ik" path="res://fonts/impress-bt.ttf" id="14_ndcfx"]
@@ -57,7 +58,7 @@ font_color = Color(1, 1, 0, 1)
 shadow_size = 8
 shadow_color = Color(0.411688, 0.411688, 3.85046e-07, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_n8suo"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2vati"]
 resource_local_to_scene = true
 shader = ExtResource("10_ngpco")
 shader_parameter/Shift_Hue = 0.585
@@ -73,7 +74,7 @@ shader = ExtResource("10_ngpco")
 shader_parameter/Shift_Hue = 0.045
 shader_parameter/alpha = 1.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_a824h"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_scuuq"]
 resource_local_to_scene = true
 shader = ExtResource("10_ngpco")
 shader_parameter/Shift_Hue = 0.585
@@ -221,8 +222,6 @@ texture_normal = ExtResource("11_iexge")
 texture_pressed = ExtResource("12_nwwc5")
 texture_hover = ExtResource("13_glcqf")
 texture_disabled = null
-hover_db_offset = 6.0
-press_db_offset = 0.0
 text = "Release Notes"
 
 [node name="Label" parent="GUI/Logo/ReleaseNotesButton" index="0"]
@@ -242,6 +241,7 @@ mouse_filter = 2
 
 [node name="PickAToonLabel" type="Label" parent="GUI/NewGameMenu"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -256,6 +256,16 @@ label_settings = SubResource("LabelSettings_1pg68")
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="ToonPagesScrollButton" parent="GUI/NewGameMenu" instance=ExtResource("11_yvcqw")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+offset_left = -104.5
+offset_top = -263.0
+offset_right = 105.5
+offset_bottom = -175.0
+options = Array[String](["Page 1"])
+
 [node name="ButtonContainer" type="HBoxContainer" parent="GUI/NewGameMenu"]
 layout_mode = 1
 anchors_preset = 12
@@ -269,7 +279,7 @@ alignment = 1
 
 [node name="BackButton" parent="GUI/NewGameMenu/ButtonContainer" instance=ExtResource("1_6oj83")]
 unique_name_in_owner = true
-material = SubResource("ShaderMaterial_n8suo")
+material = SubResource("ShaderMaterial_2vati")
 custom_minimum_size = Vector2(164, 64)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -277,8 +287,6 @@ texture_normal = ExtResource("11_iexge")
 texture_pressed = ExtResource("12_nwwc5")
 texture_hover = ExtResource("13_glcqf")
 texture_disabled = null
-hover_db_offset = 6.0
-press_db_offset = 0.0
 text = "Back"
 
 [node name="Label" parent="GUI/NewGameMenu/ButtonContainer/BackButton" index="0"]
@@ -295,8 +303,6 @@ texture_normal = ExtResource("11_iexge")
 texture_pressed = ExtResource("12_nwwc5")
 texture_hover = ExtResource("13_glcqf")
 texture_disabled = null
-hover_db_offset = 6.0
-press_db_offset = 0.0
 text = "Extras"
 
 [node name="Label" parent="GUI/NewGameMenu/ButtonContainer/ExtrasButton" index="0"]
@@ -313,8 +319,6 @@ texture_normal = ExtResource("11_iexge")
 texture_pressed = ExtResource("12_nwwc5")
 texture_hover = ExtResource("13_glcqf")
 texture_disabled = null
-hover_db_offset = 6.0
-press_db_offset = 0.0
 text = "Settings"
 
 [node name="Label" parent="GUI/NewGameMenu/ButtonContainer/SettingsButton" index="0"]
@@ -330,8 +334,6 @@ texture_normal = ExtResource("11_iexge")
 texture_pressed = ExtResource("12_nwwc5")
 texture_hover = ExtResource("13_glcqf")
 texture_disabled = null
-hover_db_offset = 6.0
-press_db_offset = 0.0
 text = "	Quit"
 
 [node name="Label" parent="GUI/NewGameMenu/ButtonContainer/QuitButton" index="0"]
@@ -364,8 +366,6 @@ texture_normal = ExtResource("11_iexge")
 texture_pressed = ExtResource("12_nwwc5")
 texture_hover = ExtResource("13_glcqf")
 texture_disabled = null
-hover_db_offset = 6.0
-press_db_offset = 0.0
 text = "New Game"
 
 [node name="Label" parent="GUI/NewGameMenu/MiddleButtons/NewGameButton" index="0"]
@@ -374,7 +374,7 @@ label_settings = SubResource("LabelSettings_5vlir")
 
 [node name="ContinueButton" parent="GUI/NewGameMenu/MiddleButtons" instance=ExtResource("1_6oj83")]
 unique_name_in_owner = true
-material = SubResource("ShaderMaterial_a824h")
+material = SubResource("ShaderMaterial_scuuq")
 custom_minimum_size = Vector2(164, 64)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -382,8 +382,6 @@ texture_normal = ExtResource("11_iexge")
 texture_pressed = ExtResource("12_nwwc5")
 texture_hover = ExtResource("13_glcqf")
 texture_disabled = null
-hover_db_offset = 6.0
-press_db_offset = 0.0
 text = "Continue"
 
 [node name="Label" parent="GUI/NewGameMenu/MiddleButtons/ContinueButton" index="0"]
@@ -483,8 +481,6 @@ texture_normal = ExtResource("11_iexge")
 texture_pressed = ExtResource("12_nwwc5")
 texture_hover = ExtResource("13_glcqf")
 texture_disabled = null
-hover_db_offset = 6.0
-press_db_offset = 0.0
 text = "Cancel"
 
 [node name="Label" parent="GUI/ToonSummary/Panel/HBoxContainer/Cancel" index="0"]
@@ -499,8 +495,6 @@ texture_normal = ExtResource("11_iexge")
 texture_pressed = ExtResource("12_nwwc5")
 texture_hover = ExtResource("13_glcqf")
 texture_disabled = null
-hover_db_offset = 6.0
-press_db_offset = 0.0
 text = "Play"
 
 [node name="Label" parent="GUI/ToonSummary/Panel/HBoxContainer/PlayButton" index="0"]
@@ -1007,6 +1001,7 @@ gizmo_extents = 1.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.97, -41.5)
 
 [connection signal="pressed" from="GUI/Logo/ReleaseNotesButton" to="." method="open_releases"]
+[connection signal="s_option_changed" from="GUI/NewGameMenu/ToonPagesScrollButton" to="." method="page_changed"]
 [connection signal="pressed" from="GUI/NewGameMenu/ButtonContainer/BackButton" to="." method="back_pressed"]
 [connection signal="pressed" from="GUI/NewGameMenu/ButtonContainer/ExtrasButton" to="." method="open_extras"]
 [connection signal="pressed" from="GUI/NewGameMenu/ButtonContainer/SettingsButton" to="." method="open_settings"]

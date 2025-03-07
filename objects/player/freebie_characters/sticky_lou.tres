@@ -1,0 +1,65 @@
+[gd_resource type="Resource" script_class="PlayerCharacter" load_steps=16 format=3 uid="uid://dx2ipsrhfunkv"]
+
+[ext_resource type="Script" path="res://objects/battle/battle_resources/stats.gd" id="1_y4c70"]
+[ext_resource type="Script" path="res://objects/toon/clothing/toon_bottoms.gd" id="2_mn3nf"]
+[ext_resource type="Texture2D" uid="uid://ugrsb3nsmlt4" path="res://models/toon/textures/clothes/shorts/desat_shorts_1_5.png" id="3_deb60"]
+[ext_resource type="Script" path="res://objects/toon/toon_dna.gd" id="4_8yxcl"]
+[ext_resource type="Script" path="res://objects/toon/clothing/toon_shirt.gd" id="5_vwh3j"]
+[ext_resource type="Texture2D" uid="uid://l5nmqw1hw5ti" path="res://models/toon/textures/clothes/shirts/desat_shirt_2_2.png" id="6_uyehr"]
+[ext_resource type="Texture2D" uid="uid://dp1mwoshkp6pb" path="res://models/toon/textures/clothes/shirts/desat_sleeve_2_1.png" id="7_if026"]
+[ext_resource type="Resource" uid="uid://tyi7ukxtvcgc" path="res://objects/battle/battle_resources/gag_loadouts/loadouts/standard_loadout.tres" id="8_ds072"]
+[ext_resource type="Script" path="res://objects/player/character.gd" id="9_lbv0w"]
+[ext_resource type="Script" path="res://objects/items/classes/item.gd" id="10_yj5dq"]
+[ext_resource type="Resource" uid="uid://cyiwxplege133" path="res://objects/items/resources/passive/emergency_unite.tres" id="11_uh6kh"]
+
+[sub_resource type="Resource" id="Resource_jj61k"]
+script = ExtResource("1_y4c70")
+damage = 1.0
+defense = 1.0
+evasiveness = 1.0
+accuracy = 1.0
+speed = 1.0
+max_turns = 3
+max_hp = 25
+hp = 25
+turns = 1
+
+[sub_resource type="Resource" id="Resource_ugrs1"]
+script = ExtResource("2_mn3nf")
+texture = ExtResource("3_deb60")
+base_color = Color(0.568627, 0.447059, 0.160784, 1)
+color_type = 0
+
+[sub_resource type="Resource" id="Resource_2lryd"]
+script = ExtResource("5_vwh3j")
+shirt_texture = ExtResource("6_uyehr")
+sleeve_texture = ExtResource("7_if026")
+base_color = Color(0.345098, 0.819608, 0.952941, 1)
+sleeve_color = Color(0.345098, 0.819608, 0.952941, 1)
+color_type = 0
+
+[sub_resource type="Resource" id="Resource_ax4gq"]
+script = ExtResource("4_8yxcl")
+body_type = 2
+species = 6
+head_index = 1
+eyelashes = false
+skirt = false
+head_color = Color(0.709804, 0.231373, 0.435294, 1)
+torso_color = Color(0.709804, 0.231373, 0.435294, 1)
+leg_color = Color(0.709804, 0.231373, 0.435294, 1)
+shirt = SubResource("Resource_2lryd")
+bottoms = SubResource("Resource_ugrs1")
+
+[resource]
+script = ExtResource("9_lbv0w")
+character_name = "Sticky Lou"
+character_summary = "- Can revive once before going sad
+- 5% base Throw boost
+- Starts with Throw and Squirt"
+dna = SubResource("Resource_ax4gq")
+gag_loadout = ExtResource("8_ds072")
+starting_laff = 30
+starting_items = Array[ExtResource("10_yj5dq")]([ExtResource("11_uh6kh")])
+base_stats = SubResource("Resource_jj61k")
+random_character_stored_name = ""

@@ -1,0 +1,65 @@
+[gd_resource type="Resource" script_class="PlayerCharacter" load_steps=16 format=3 uid="uid://c7s6ewr4y1t58"]
+
+[ext_resource type="Script" path="res://objects/battle/battle_resources/stats.gd" id="1_es15g"]
+[ext_resource type="Script" path="res://objects/toon/clothing/toon_bottoms.gd" id="2_15vco"]
+[ext_resource type="Texture2D" uid="uid://vkwm8vx2j4t1" path="res://models/toon/textures/clothes/skirts/desat_skirt_5.png" id="3_1l4nd"]
+[ext_resource type="Script" path="res://objects/toon/toon_dna.gd" id="4_7b88j"]
+[ext_resource type="Script" path="res://objects/toon/clothing/toon_shirt.gd" id="5_qeok2"]
+[ext_resource type="Texture2D" uid="uid://dsikqlc2iiid4" path="res://models/toon/textures/clothes/shirts/desat_shirt_1_4.png" id="6_vhbn0"]
+[ext_resource type="Texture2D" uid="uid://dh7dyokcfyw43" path="res://models/toon/textures/clothes/shirts/desat_sleeve_1.png" id="7_24ccl"]
+[ext_resource type="Resource" uid="uid://tyi7ukxtvcgc" path="res://objects/battle/battle_resources/gag_loadouts/loadouts/standard_loadout.tres" id="8_m4eaa"]
+[ext_resource type="Script" path="res://objects/player/character.gd" id="9_x3fxy"]
+[ext_resource type="Script" path="res://objects/items/classes/item.gd" id="10_5hlx6"]
+[ext_resource type="Resource" uid="uid://cyiwxplege133" path="res://objects/items/resources/passive/emergency_unite.tres" id="11_g3tuv"]
+
+[sub_resource type="Resource" id="Resource_jj61k"]
+script = ExtResource("1_es15g")
+damage = 1.0
+defense = 1.0
+evasiveness = 1.0
+accuracy = 1.0
+speed = 1.0
+max_turns = 3
+max_hp = 25
+hp = 25
+turns = 1
+
+[sub_resource type="Resource" id="Resource_ugrs1"]
+script = ExtResource("2_15vco")
+texture = ExtResource("3_1l4nd")
+base_color = Color(0.669407, 0.130795, 0.160186, 1)
+color_type = 0
+
+[sub_resource type="Resource" id="Resource_2lryd"]
+script = ExtResource("5_qeok2")
+shirt_texture = ExtResource("6_vhbn0")
+sleeve_texture = ExtResource("7_24ccl")
+base_color = Color(1, 1, 1, 1)
+sleeve_color = Color(1, 1, 1, 1)
+color_type = 0
+
+[sub_resource type="Resource" id="Resource_ax4gq"]
+script = ExtResource("4_7b88j")
+body_type = 2
+species = 3
+head_index = 1
+eyelashes = true
+skirt = true
+head_color = Color(0.243137, 0.741176, 0.513726, 1)
+torso_color = Color(0.243137, 0.741176, 0.513726, 1)
+leg_color = Color(0.243137, 0.741176, 0.513726, 1)
+shirt = SubResource("Resource_2lryd")
+bottoms = SubResource("Resource_ugrs1")
+
+[resource]
+script = ExtResource("9_x3fxy")
+character_name = "Sophie Squirt"
+character_summary = "- Can revive once before going sad
+- 5% base Throw boost
+- Starts with Throw and Squirt"
+dna = SubResource("Resource_ax4gq")
+gag_loadout = ExtResource("8_m4eaa")
+starting_laff = 30
+starting_items = Array[ExtResource("10_5hlx6")]([ExtResource("11_g3tuv")])
+base_stats = SubResource("Resource_jj61k")
+random_character_stored_name = ""

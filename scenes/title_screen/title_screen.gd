@@ -11,6 +11,8 @@ const ELEVATOR_SCENE := "res://scenes/elevator_scene/elevator_scene.tscn"
 var SFX_SELECT := LazyLoader.defer("res://audio/sfx/ui/Click.ogg")
 const RELEASES_MENU := preload("res://scenes/title_screen/release_notes/release_notes_panel.tscn")
 
+const MAX_TOONS_PER_PAGE := 6
+
 
 enum MenuState {
 	ROTATING,
@@ -42,6 +44,9 @@ var selected_toon: Toon
 var selected_character: PlayerCharacter
 var random_toon_name := ""
 var elevator: BuildingElevator
+
+var spawned_toons : Array[Toon] = []
+var toons_shown := false
 
 var releases_menu: UIPanel = null
 
@@ -99,6 +104,12 @@ func _ready() -> void:
 	
 	AudioManager.stop_music(true)
 	AudioManager.set_default_music(load("res://audio/music/main_theme.ogg"))
+	
+	create_toons()
+	
+	%ToonPagesScrollButton.options.clear()
+	for i in range(ceil(float(spawned_toons.size()) / MAX_TOONS_PER_PAGE)):
+		%ToonPagesScrollButton.options.append(str("Page ", i+1))
 
 func _process(delta: float) -> void:
 	if state == MenuState.ROTATING:
@@ -137,19 +148,55 @@ func create_toons() -> void:
 	for i in range(toons.size() -1, -1, -1):
 		if i >= SaveFileService.progress_file.characters_unlocked:
 			toons.remove_at(i)
-
-	var starting_point := (-floorf(toons.size() / 2)) * TOON_SEPARATION
-	if toons.size() % 2 == 0: starting_point += (TOON_SEPARATION / 2.0)
+	
+	toons.append_array(Globals.FREEBIE_TOONS)
+	
+	var starting_point := (-floorf(min(toons.size(), MAX_TOONS_PER_PAGE) / 2)) * TOON_SEPARATION
+	if min(toons.size(), MAX_TOONS_PER_PAGE) % 2 == 0: starting_point += (TOON_SEPARATION / 2.0)
 	
 	for character : PlayerCharacter in toons:
-		await TaskMgr.delay(0.25)
 		var toon := spawn_toon(character)
 		toon_origin.add_child(toon)
+		toon.hide()
 		toon.construct_toon(toon.toon_dna)
 		toon.position.x = starting_point
 		starting_point += TOON_SEPARATION
+		spawned_toons.append(toon)
+		if spawned_toons.size() % MAX_TOONS_PER_PAGE == 0:
+			starting_point -= TOON_SEPARATION * MAX_TOONS_PER_PAGE
+			# Recalculate positions if last page is not full
+			var toons_left := toons.size() - spawned_toons.size()
+			if toons_left < MAX_TOONS_PER_PAGE:
+				starting_point = (-floorf(toons_left / 2)) * TOON_SEPARATION
+				if toons_left % 2 == 0: starting_point += (TOON_SEPARATION / 2.0)
+	
+	toons_created = true
+
+func show_toons(start_idx : int) -> void:
+	var last_toon : Toon
+	for i in range(start_idx, start_idx + MAX_TOONS_PER_PAGE):
+		if i >= spawned_toons.size():
+			break
+		
+		var toon = spawned_toons[i]
+		await TaskMgr.delay(0.25)
+		toon.show()
 		toon.teleport_in()
-		toon.animator.animation_finished.connect(toon.animator.play.bind('neutral').unbind(1))
+		toon.animator.animation_finished.connect(toon.animator.play.bind('neutral').unbind(1), 4)
+		last_toon = toon
+	toons_shown = true
+	await last_toon.animator.animation_finished
+
+func hide_toons() -> void:
+	var last_toon : Toon
+	for toon in spawned_toons:
+		if not toon.visible: continue
+		await TaskMgr.delay(0.05)
+		toon.teleport_out()
+		toon.animator.animation_finished.connect(toon.hide.unbind(1), 4)
+		last_toon = toon
+	toons_shown = false
+	await last_toon.animator.animation_finished
 
 func spawn_toon(character : PlayerCharacter) -> Toon:
 	var toon := TOON.instantiate()
@@ -164,6 +211,15 @@ func spawn_toon(character : PlayerCharacter) -> Toon:
 	static_body.input_event.connect(toon_input_event.bind(toon, character))
 	return toon
 
+func set_toon_page(page : int) -> void:
+	%ToonPagesScrollButton.scroll_enabled = false
+	if toons_shown:
+		await hide_toons()
+	
+	if !toons_shown and page > -1:
+		await show_toons((page) * MAX_TOONS_PER_PAGE)
+	%ToonPagesScrollButton.scroll_enabled = true
+
 func toon_input_event(_camera, event, _event_position, _normal, _shape_index, toon: Toon, character: PlayerCharacter) -> void:
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
@@ -174,12 +230,15 @@ func toon_clicked(toon: Toon, character: PlayerCharacter) -> void:
 	selected_character = character
 	selected_toon = toon
 	toon.set_animation('happy')
+	toon.animator.animation_finished.connect(toon.animator.play.bind('neutral').unbind(1), 4)
 	AudioManager.play_sound(SFX_SELECT.load())
 	set_selected_toon(character)
 
 func toon_canceled() -> void:
 	toon_summary.hide()
 	%PickAToonLabel.show()
+	if spawned_toons.size() > MAX_TOONS_PER_PAGE:
+		%ToonPagesScrollButton.show()
 
 func new_game() -> void:
 	state = MenuState.TRANSITIONING
@@ -259,18 +318,25 @@ func set_selected_toon(character: PlayerCharacter) -> void:
 		%ToonName.set_text(character.character_name)
 	%SummaryDesc.set_text(character.character_summary)
 	%PickAToonLabel.hide()
+	%ToonPagesScrollButton.hide()
 
 var toons_created := false
 func new_game_pressed() -> void:
 	middle_buttons.hide()
+	%PickAToonLabel.show()
+	if spawned_toons.size() > MAX_TOONS_PER_PAGE:
+		%ToonPagesScrollButton.show()
 	state = MenuState.TOON_SELECT
-	if not toons_created:
-		create_toons()
-		toons_created = true
+	set_toon_page(%ToonPagesScrollButton.option_index)
+	#if not toons_created:
+		#create_toons()
+		#toons_created = true
 
 func back_pressed() -> void:
 	if not middle_buttons.visible:
 		middle_buttons.show()
+		%PickAToonLabel.hide()
+		%ToonPagesScrollButton.hide()
 		state = MenuState.NEW_GAME
 		toon_summary.hide()
 	else:
@@ -289,3 +355,7 @@ func back_out_logo() -> void:
 			$GUI/Logo.show()
 			state = MenuState.ROTATING
 	)
+
+
+func page_changed(index: int) -> void:
+	set_toon_page(index)
