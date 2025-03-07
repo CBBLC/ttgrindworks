@@ -327,7 +327,8 @@ func new_game_pressed() -> void:
 	if spawned_toons.size() > MAX_TOONS_PER_PAGE:
 		%ToonPagesScrollButton.show()
 	state = MenuState.TOON_SELECT
-	set_toon_page(%ToonPagesScrollButton.option_index)
+	if not toons_shown:
+		set_toon_page(%ToonPagesScrollButton.option_index)
 	#if not toons_created:
 		#create_toons()
 		#toons_created = true
