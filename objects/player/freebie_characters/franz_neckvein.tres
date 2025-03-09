@@ -10,7 +10,7 @@
 [ext_resource type="Resource" uid="uid://tyi7ukxtvcgc" path="res://objects/battle/battle_resources/gag_loadouts/loadouts/standard_loadout.tres" id="8_qxawa"]
 [ext_resource type="Script" uid="uid://ts8xpgftpmty" path="res://objects/player/character.gd" id="9_qg1q6"]
 [ext_resource type="Script" uid="uid://combwqypom1ru" path="res://objects/items/classes/item.gd" id="10_tdy63"]
-[ext_resource type="Resource" uid="uid://cyiwxplege133" path="res://objects/items/resources/passive/emergency_unite.tres" id="11_gqf0q"]
+[ext_resource type="Resource" uid="uid://c0lqm51xuu3gu" path="res://objects/items/resources/passive/franz_training.tres" id="11_p6v1a"]
 
 [sub_resource type="Resource" id="Resource_jj61k"]
 script = ExtResource("1_mcij2")
@@ -54,12 +54,14 @@ bottoms = SubResource("Resource_ugrs1")
 [resource]
 script = ExtResource("9_qg1q6")
 character_name = "Franz Neckvein"
-character_summary = "- Can revive once before going sad
-- 5% base Throw boost
-- Starts with Throw and Squirt"
+character_summary = "- Gag tracks used during a round 
+  are buffed for the floor
+- Gag tracks that go unused for a round 
+  are weakened for the floor
+- Starts with Throw and Drop"
 dna = SubResource("Resource_ax4gq")
 gag_loadout = ExtResource("8_qxawa")
 starting_laff = 30
-starting_items = Array[ExtResource("10_tdy63")]([ExtResource("11_gqf0q")])
+starting_items = Array[ExtResource("10_tdy63")]([ExtResource("11_p6v1a")])
 base_stats = SubResource("Resource_jj61k")
 random_character_stored_name = ""
