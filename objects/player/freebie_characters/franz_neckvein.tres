@@ -56,8 +56,8 @@ script = ExtResource("9_qg1q6")
 character_name = "Franz Neckvein"
 character_summary = "- Gag tracks used during a round 
   are buffed for the floor
-- Gag tracks that go unused for a round 
-  are weakened for the floor
+- Gag tracks that go unused for a 
+  round are weakened for the floor
 - Starts with Throw and Drop"
 dna = SubResource("Resource_ax4gq")
 gag_loadout = ExtResource("8_qxawa")
