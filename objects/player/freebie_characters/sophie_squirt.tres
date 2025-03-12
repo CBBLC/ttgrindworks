@@ -10,7 +10,7 @@
 [ext_resource type="Resource" uid="uid://tyi7ukxtvcgc" path="res://objects/battle/battle_resources/gag_loadouts/loadouts/standard_loadout.tres" id="8_m4eaa"]
 [ext_resource type="Script" uid="uid://ts8xpgftpmty" path="res://objects/player/character.gd" id="9_x3fxy"]
 [ext_resource type="Script" uid="uid://combwqypom1ru" path="res://objects/items/classes/item.gd" id="10_5hlx6"]
-[ext_resource type="Resource" uid="uid://cyiwxplege133" path="res://objects/items/resources/passive/emergency_unite.tres" id="11_g3tuv"]
+[ext_resource type="Resource" uid="uid://dux1fdwvrw4cg" path="res://objects/items/resources/passive/sophie_gag_cost.tres" id="11_anco1"]
 
 [sub_resource type="Resource" id="Resource_jj61k"]
 script = ExtResource("1_es15g")
@@ -54,12 +54,14 @@ bottoms = SubResource("Resource_ugrs1")
 [resource]
 script = ExtResource("9_x3fxy")
 character_name = "Sophie Squirt"
-character_summary = "- Can revive once before going sad
-- 5% base Throw boost
-- Starts with Throw and Squirt"
+character_summary = "- 2x gag point cost
+- Spends laff instead of points
+- Recovers laff at the end of each round
+- Vouchers recover laff
+- Starts with Squirt and Drop"
 dna = SubResource("Resource_ax4gq")
 gag_loadout = ExtResource("8_m4eaa")
 starting_laff = 30
-starting_items = Array[ExtResource("10_5hlx6")]([ExtResource("11_g3tuv")])
+starting_items = Array[ExtResource("10_5hlx6")]([ExtResource("11_anco1")])
 base_stats = SubResource("Resource_jj61k")
 random_character_stored_name = ""

@@ -72,7 +72,10 @@ func _refresh_vouchers() -> void:
 
 func use_voucher(track: Track) -> void:
 	Util.get_player().stats.gag_vouchers[track.track_name] -= 1
-	Util.get_player().stats.gag_balance[track.track_name] += 5
+	if Util.get_player().stats.has_item('Sophie Gag Cost'):
+		BattleService.ongoing_battle.affect_target(Util.get_player(), 'hp', -5, false)
+	else:
+		Util.get_player().stats.gag_balance[track.track_name] += 5
 	_refresh_vouchers()
 	for child in get_parent().gag_tracks.get_children():
 		child.refresh()
