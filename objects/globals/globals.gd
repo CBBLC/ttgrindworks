@@ -30,7 +30,8 @@ const TOON_UNLOCK_ORDER : Array[PlayerCharacter] = [
 	preload('res://objects/player/characters/testchar.tres')
 ]
 const FREEBIE_TOONS : Array[PlayerCharacter] = [
-	preload('res://objects/player/freebie_characters/franz_neckvein.tres')
+	preload('res://objects/player/freebie_characters/franz_neckvein.tres'),
+	preload('res://objects/player/freebie_characters/sophie_squirt.tres')
 ]
 
 ## Global Cog Pools

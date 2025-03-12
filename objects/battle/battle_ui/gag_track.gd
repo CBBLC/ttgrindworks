@@ -42,7 +42,8 @@ func _ready():
 
 func emit_gag(gag: ToonAttack, price: int):
 	var newgag := gag.duplicate()
-	Util.get_player().stats.gag_balance[track.track_name] -= price
+	if !Util.get_player().stats.has_item('Sophie Gag Cost'):
+		Util.get_player().stats.gag_balance[track.track_name] -= price
 	refresh()
 	ui_root.s_gag_pressed.emit(newgag)
 	newgag.price = price
@@ -55,6 +56,11 @@ func refresh():
 	# Duplicate the base track so that the effects are not permanent
 	gags = track.gags.duplicate()
 	s_refreshing.emit(self)
+	
+	var current_total_cost := 0
+	if Util.get_player().stats.has_item('Sophie Gag Cost'):
+		for gag in BattleService.ongoing_battle.battle_ui.selected_gags:
+			current_total_cost += gag.price
 	
 	for i in gag_buttons.size():
 		if gags.size() >= i + 1 and i < unlocked:
@@ -70,11 +76,14 @@ func refresh():
 			if not button.pressed.is_connected(emit_gag):
 				price = i
 				price -= BattleService.ongoing_battle.battle_stats[Util.get_player()].gag_discount
+				price *= BattleService.ongoing_battle.battle_stats[Util.get_player()].gag_cost_mult
 				button.mouse_entered.connect(ui_root.gag_hovered.bind(gag))
 				button.set_count(price)
 				button.pressed.connect(emit_gag.bind(gag,price))
 			
-			if Util.get_player().stats.gag_balance[track.track_name] < price:
+			if (Util.get_player().stats.gag_balance[track.track_name] < price or 
+				Util.get_player().stats.has_item('Sophie Gag Cost') and 
+				current_total_cost + price >= Util.get_player().stats.hp):
 				button.disable()
 			elif (gag is GagLure) and all_cogs_lured():
 				button.disable()
@@ -85,7 +94,10 @@ func refresh():
 		else:
 			gag_buttons[i].hide()
 	
-	point_label.text = "Points: " + str(roundi(Util.get_player().stats.gag_balance[track.track_name])) + '/' + str(roundi(Util.get_player().stats.gag_cap))
+	if Util.get_player().stats.has_item('Sophie Gag Cost'):
+		point_label.hide()
+	else:
+		point_label.text = "Points: " + str(roundi(Util.get_player().stats.gag_balance[track.track_name])) + '/' + str(roundi(Util.get_player().stats.gag_cap))
 	if Util.get_player().stats.gag_balance[track.track_name] > Util.get_player().stats.gag_cap:
 		point_label.self_modulate = WARNING_COLOR
 	else:
@@ -94,7 +106,8 @@ func refresh():
 func refund_gag(gag: ToonAttack):
 	for i in track.gags.size():
 		if track.gags[i].action_name == gag.action_name:
-			Util.get_player().stats.gag_balance[track.track_name] += gag.price
+			if !Util.get_player().stats.has_item('Sophie Gag Cost'):
+				Util.get_player().stats.gag_balance[track.track_name] += gag.price
 			refresh()
 			return
 

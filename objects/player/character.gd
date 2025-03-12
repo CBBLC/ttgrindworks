@@ -132,3 +132,10 @@ func franzneckvein(player: Player) -> void:
 	player.stats.gags_unlocked['Throw'] = 1
 	player.stats.gags_unlocked['Drop'] = 1
 	player.stats.luck = 1.05
+
+func sophiesquirt(player: Player) -> void:
+	player.stats.gags_unlocked['Squirt'] = 1
+	player.stats.gags_unlocked['Drop'] = 1
+	player.stats.gag_cost_mult = 2
+	player.stats.gag_cap = 50
+	player.stats.luck = 1.05

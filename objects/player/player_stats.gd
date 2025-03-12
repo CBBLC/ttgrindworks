@@ -29,6 +29,7 @@ signal s_gained_money
 
 @export var gag_cap := 10
 @export var gag_discount := -1
+@export var gag_cost_mult := 1
 @export var character: PlayerCharacter
 @export var quests: Array[Quest]
 @export var quest_rerolls := 3
@@ -70,7 +71,7 @@ func set_loadout(loadout: GagLoadout) -> void:
 		var value 
 		match gag_dicts.find(dict):
 			0, 5: value = 0
-			1: value = 10
+			1: value = gag_cap
 			2: value = 1.0
 			3: value = 1
 			_: value = 1
@@ -109,7 +110,7 @@ func max_out() -> void:
 		turns = character.base_stats.max_turns
 	for track in gags_unlocked:
 		gags_unlocked[track] = 7
-		gag_balance[track] = 10
+		gag_balance[track] = gag_cap
 	for key in toonups.keys():
 		toonups[key] = 0
 	for key in gag_vouchers.keys():
