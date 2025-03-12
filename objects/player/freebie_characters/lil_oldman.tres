@@ -10,7 +10,7 @@
 [ext_resource type="Resource" uid="uid://tyi7ukxtvcgc" path="res://objects/battle/battle_resources/gag_loadouts/loadouts/standard_loadout.tres" id="8_60vr8"]
 [ext_resource type="Script" uid="uid://ts8xpgftpmty" path="res://objects/player/character.gd" id="9_abd8m"]
 [ext_resource type="Script" uid="uid://combwqypom1ru" path="res://objects/items/classes/item.gd" id="10_jl17g"]
-[ext_resource type="Resource" uid="uid://cyiwxplege133" path="res://objects/items/resources/passive/emergency_unite.tres" id="11_q8hbs"]
+[ext_resource type="Resource" uid="uid://cbkkww86d01td" path="res://objects/items/resources/passive/oldman_lure_turns.tres" id="11_ypqi1"]
 
 [sub_resource type="Resource" id="Resource_jj61k"]
 script = ExtResource("1_oc3xf")
@@ -19,7 +19,7 @@ defense = 1.0
 evasiveness = 1.0
 accuracy = 1.0
 speed = 1.0
-max_turns = 3
+max_turns = 2
 max_hp = 25
 hp = 25
 turns = 1
@@ -54,12 +54,14 @@ bottoms = SubResource("Resource_ugrs1")
 [resource]
 script = ExtResource("9_abd8m")
 character_name = "Lil Oldman"
-character_summary = "- Can revive once before going sad
-- 5% base Throw boost
-- Starts with Throw and Squirt"
+character_summary = "- Extra turn per lured cog in battle
+- Cogs stay lured for an extra round 
+  per negative status effect applied
+- Trapped cogs do not unlure
+- Starts with Lure and Squirt"
 dna = SubResource("Resource_ax4gq")
 gag_loadout = ExtResource("8_60vr8")
 starting_laff = 30
-starting_items = Array[ExtResource("10_jl17g")]([ExtResource("11_q8hbs")])
+starting_items = Array[ExtResource("10_jl17g")]([ExtResource("11_ypqi1")])
 base_stats = SubResource("Resource_jj61k")
 random_character_stored_name = ""

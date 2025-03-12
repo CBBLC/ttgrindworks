@@ -2668,8 +2668,6 @@ offset_bottom = 92.0
 texture_normal = ExtResource("16_fsqkc")
 texture_pressed = ExtResource("17_75n66")
 texture_hover = ExtResource("18_fiwp1")
-hover_db_offset = 6.0
-press_db_offset = 0.0
 
 [node name="Label2" type="Label" parent="TargetSelect/Buttons/Back"]
 layout_mode = 0
@@ -2702,8 +2700,6 @@ texture_pressed = ExtResource("20_s4dyj")
 texture_hover = ExtResource("21_gljl2")
 texture_disabled = null
 stretch_mode = 4
-hover_db_offset = 6.0
-press_db_offset = 0.0
 
 [node name="SelectedGags" type="HBoxContainer" parent="."]
 unique_name_in_owner = true
@@ -2754,8 +2750,6 @@ grow_horizontal = 0
 texture_normal = ExtResource("140_6x2im")
 texture_pressed = ExtResource("141_535oy")
 texture_hover = ExtResource("142_ughqa")
-hover_db_offset = 6.0
-press_db_offset = 0.0
 
 [node name="ItemPanel" type="TextureRect" parent="."]
 unique_name_in_owner = true
@@ -2894,8 +2888,6 @@ pivot_offset = Vector2(20, 20)
 texture_normal = null
 texture_pressed = null
 texture_disabled = null
-hover_db_offset = 6.0
-press_db_offset = 0.0
 
 [node name="Quantity" type="Label" parent="ItemPanel/MenuSize/GagVouchers/VoucherTemplate"]
 layout_mode = 1
@@ -2967,8 +2959,6 @@ pivot_offset = Vector2(20, 20)
 texture_normal = null
 texture_pressed = null
 texture_disabled = null
-hover_db_offset = 6.0
-press_db_offset = 0.0
 
 [node name="Quantity" type="Label" parent="ItemPanel/MenuSize/ToonUp/ToonUpTemplate"]
 layout_mode = 1
@@ -3039,8 +3029,6 @@ texture_normal = ExtResource("140_6x2im")
 texture_pressed = ExtResource("141_535oy")
 texture_hover = ExtResource("142_ughqa")
 texture_disabled = null
-hover_db_offset = 6.0
-press_db_offset = 0.0
 
 [node name="StatusContainer" type="HBoxContainer" parent="."]
 unique_name_in_owner = true

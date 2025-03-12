@@ -127,3 +127,8 @@ func moezart(player: Player) -> void:
 	player.stats.gags_unlocked['Sound'] = 1
 	player.stats.gags_unlocked['Drop'] = 1
 	player.stats.luck = 1.05
+
+func liloldman(player: Player) -> void:
+	player.stats.gags_unlocked['Lure'] = 1
+	player.stats.gags_unlocked['Squirt'] = 1
+	player.stats.luck = 1.05

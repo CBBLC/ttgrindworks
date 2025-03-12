@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://cbkkww86d01td"]
+
+[ext_resource type="Script" uid="uid://combwqypom1ru" path="res://objects/items/classes/item.gd" id="1_6ks0t"]
+[ext_resource type="Script" uid="uid://44ug6k4i6qit" path="res://objects/items/custom/item_oldman_lure_turns.gd" id="1_brj8f"]
+
+[resource]
+script = ExtResource("1_6ks0t")
+qualitoon = 4
+rarity = 0
+evergreen = false
+realtime = false
+slot = 0
+world_scale = 1.0
+want_ui_spin = true
+ui_cam_offset = 0.0
+item_name = "Oldman Lure Turns"
+item_description = ""
+big_description = "Unique to Lil Oldman"
+stats_add = {}
+stats_multiply = {}
+player_values = {}
+arbitrary_data = {}
+item_script = ExtResource("1_brj8f")
+remember_item = true
+shop_category_title = "Boost Item"
+shop_category_color = Color(0.196078, 0.580392, 0.917647, 1)
+force_show_shop_category = false
+custom_shop_price = 0
+metadata/_custom_type_script = "uid://combwqypom1ru"

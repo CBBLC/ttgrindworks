@@ -102,6 +102,8 @@ func action():
 				cog.trap.activating_lure = self
 				barrier_turn.append(cog.trap.s_trap)
 				cog.trap.activate()
+				if Util.get_player().stats.has_item('Oldman Lure Turns'):
+					apply_lure(cog)
 			else:
 				apply_lure(cog)
 		if not barrier_turn._signal_arr.is_empty():
