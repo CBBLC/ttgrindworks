@@ -10,7 +10,7 @@
 [ext_resource type="Resource" uid="uid://tyi7ukxtvcgc" path="res://objects/battle/battle_resources/gag_loadouts/loadouts/standard_loadout.tres" id="8_vpjvm"]
 [ext_resource type="Script" uid="uid://ts8xpgftpmty" path="res://objects/player/character.gd" id="9_oucgi"]
 [ext_resource type="Script" uid="uid://combwqypom1ru" path="res://objects/items/classes/item.gd" id="10_27uvu"]
-[ext_resource type="Resource" uid="uid://cyiwxplege133" path="res://objects/items/resources/passive/emergency_unite.tres" id="11_awhgj"]
+[ext_resource type="Resource" uid="uid://h3fhg5jb2ubo" path="res://objects/items/resources/passive/pete_reduction.tres" id="11_ecnnr"]
 
 [sub_resource type="Resource" id="Resource_jj61k"]
 script = ExtResource("1_ab1bl")
@@ -60,6 +60,6 @@ character_summary = "- Can revive once before going sad
 dna = SubResource("Resource_ax4gq")
 gag_loadout = ExtResource("8_vpjvm")
 starting_laff = 30
-starting_items = Array[ExtResource("10_27uvu")]([ExtResource("11_awhgj")])
+starting_items = Array[ExtResource("10_27uvu")]([ExtResource("11_ecnnr")])
 base_stats = SubResource("Resource_jj61k")
 random_character_stored_name = ""

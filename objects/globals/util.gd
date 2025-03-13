@@ -251,7 +251,10 @@ func make_boss_chests(holder_node: Node3D, pos_node: Node3D) -> void:
 				chest.override_item = RandomService.array_pick_random('boss_drops', load("res://objects/items/pools/super_candies.tres").items)
 			1:
 				# Give a random track frame
-				chest.override_item = load("res://objects/items/resources/passive/track_frame.tres")
+				if (is_instance_valid(Util.get_player()) and Util.get_player().stats.has_item('Pete Reduction')):
+					chest.override_item = load("res://objects/items/resources/passive/gag_voucher_small.tres")
+				else:
+					chest.override_item = load("res://objects/items/resources/passive/track_frame.tres")
 			2:
 				# Give a toon-up consumable of a type that they don't have any of, except high dive
 				# If they have one of each non-high dive one, it gives a progressive instead
