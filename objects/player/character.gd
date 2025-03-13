@@ -133,4 +133,5 @@ func professorpete(player : Player) -> void:
 		player.stats.gags_unlocked[track] = 7
 		player.stats.gag_regeneration[track] = 0
 		player.stats.gag_battle_start_point_boost[track] = 0
+	player.stats.gag_discount = 0
 	player.stats.luck = 1.05

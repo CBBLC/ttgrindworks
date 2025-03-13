@@ -54,9 +54,11 @@ bottoms = SubResource("Resource_ugrs1")
 [resource]
 script = ExtResource("9_oucgi")
 character_name = "Professor Pete"
-character_summary = "- Can revive once before going sad
-- 5% base Throw boost
-- Starts with Throw and Squirt"
+character_summary = "- Hitting zero points on a track 
+  decreases its level by one
+- Does not regenerate gag points
+- Gag frames are replaced by vouchers
+- Starts with all gags"
 dna = SubResource("Resource_ax4gq")
 gag_loadout = ExtResource("8_vpjvm")
 starting_laff = 30
