@@ -69,7 +69,8 @@ func refresh():
 			var price := 0
 			if not button.pressed.is_connected(emit_gag):
 				price = i
-				price -= BattleService.ongoing_battle.battle_stats[Util.get_player()].gag_discount
+				#price -= BattleService.ongoing_battle.battle_stats[Util.get_player()].gag_discount
+				price = max(price - BattleService.ongoing_battle.battle_stats[Util.get_player()].gag_discount, 0)
 				button.mouse_entered.connect(ui_root.gag_hovered.bind(gag))
 				button.set_count(price)
 				button.pressed.connect(emit_gag.bind(gag,price))
