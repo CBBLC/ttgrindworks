@@ -144,3 +144,11 @@ func liloldman(player: Player) -> void:
 	player.stats.gags_unlocked['Lure'] = 1
 	player.stats.gags_unlocked['Squirt'] = 1
 	player.stats.luck = 1.05
+
+func professorpete(player : Player) -> void:
+	for track in player.stats.gags_unlocked.keys():
+		player.stats.gags_unlocked[track] = 7
+		player.stats.gag_regeneration[track] = 0
+		player.stats.gag_battle_start_point_boost[track] = 0
+	player.stats.gag_discount = 0
+	player.stats.luck = 1.05

@@ -54,9 +54,23 @@ func assign_item(world_item: WorldItem):
 			scripted_item = scripted_item.duplicate()
 			scripted_item.stats_add['max_hp'] = 8
 			scripted_item.stats_add['hp'] = 8
+		
+		# Replace point boost with a voucher for Professor Pete
+		if (is_instance_valid(Util.get_player()) and 
+		Util.get_player().stats.has_item('Pete Reduction') and 
+		scripted_item == POINT_BOOST):
+			print("Forced Scripted Voucher")
+			scripted_item = load("res://objects/items/resources/passive/gag_voucher_small.tres")
+		
 		world_item.item = scripted_item
 		return
 	if override_item:
+		# Prevent Professor Pete getting track frames from final floor chests
+		if (is_instance_valid(Util.get_player()) and 
+		Util.get_player().stats.has_item('Pete Reduction') and 
+		override_item.item_name == "Gag Track Frame "): 
+			override_item = load("res://objects/items/resources/passive/gag_voucher_small.tres")
+		
 		world_item.item = override_item
 		return
 	world_item.pool = item_pool

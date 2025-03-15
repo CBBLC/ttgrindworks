@@ -31,7 +31,11 @@ func get_random_item(pool: ItemPool, override_rolls := false) -> Item:
 		# Gag roll
 		var gag_roll := RandomService.randf_channel("gag_rolls")
 		print('Gag rate is ' + str(get_gag_rate()) + ' Gag roll is ' + str(gag_roll))
-		if gag_roll < get_gag_rate():
+		if (is_instance_valid(Util.get_player()) and Util.get_player().stats.has_item('Pete Reduction')): 
+			if gag_roll < ItemPeteReduction.get_voucher_rate():
+				print('Forcing voucher spawn')
+				return load("res://objects/items/resources/passive/gag_voucher_small.tres")
+		elif gag_roll < get_gag_rate():
 			print('Forcing gag spawn')
 			return load('res://objects/items/resources/passive/track_frame.tres')
 		# Laff roll
@@ -91,7 +95,7 @@ func get_random_item(pool: ItemPool, override_rolls := false) -> Item:
 	if quality_trimmed_pool.is_empty():
 		print("Empty quality-trimmed pool. Spawning fallback.")
 		return get_random_roll_fail_item()
-
+	
 	return RandomService.array_pick_random('item_rolls', quality_trimmed_pool)
 
 func get_random_roll_fail_item() -> Item:
