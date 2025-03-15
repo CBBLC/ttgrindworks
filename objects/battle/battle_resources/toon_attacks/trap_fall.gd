@@ -67,7 +67,8 @@ func action():
 
 	# For detective hat item
 	if not user.trap_needs_lure and target.lured:
-		manager.force_unlure(target)
+		if not user.stats.has_item('Oldman Lure Turns'):
+			manager.force_unlure(target)
 		await activate()
 
 func activate():
@@ -126,11 +127,12 @@ func activate():
 		activating_lure.current_activating_trap = null
 	
 	await target.animator.animation_finished
-	target.set_animation('walk')
-	var walk_tween: Tween = target.create_tween()
-	walk_tween.tween_property(target.get_node('Body'), 'position:z', 0.0, 0.5)
-	await walk_tween.finished
-	walk_tween.kill()
+	if not Util.get_player().stats.has_item('Oldman Lure Turns'):
+		target.set_animation('walk')
+		var walk_tween: Tween = target.create_tween()
+		walk_tween.tween_property(target.get_node('Body'), 'position:z', 0.0, 0.5)
+		await walk_tween.finished
+		walk_tween.kill()
 	target.set_animation('neutral')
 	
 	target.trap = null

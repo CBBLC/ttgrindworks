@@ -116,7 +116,8 @@ func action():
 
 	# For detective hat item
 	if not user.trap_needs_lure and target.lured:
-		manager.force_unlure(target)
+		if not user.stats.has_item('Oldman Lure Turns'):
+			manager.force_unlure(target)
 		await activate()
 
 func activate():
@@ -135,13 +136,14 @@ func activate():
 		ActiveMovie.TNT:
 			await tnt()
 	
-	# Make the cog walk back to the proper position after the trap has finished
-	target.set_animation('walk')
-	var walk_tween : Tween = manager.create_tween()
-	walk_tween.tween_property(target.get_node('Body'),'position:z',0.0,0.5)
-	await walk_tween.finished
+	if not Util.get_player().stats.has_item('Oldman Lure Turns'):
+		# Make the cog walk back to the proper position after the trap has finished
+		target.set_animation('walk')
+		var walk_tween : Tween = manager.create_tween()
+		walk_tween.tween_property(target.get_node('Body'),'position:z',0.0,0.5)
+		await walk_tween.finished
+		walk_tween.kill()
 	target.set_animation('neutral')
-	walk_tween.kill()
 	
 	# Check if target is alive
 	await manager.check_pulses(targets)

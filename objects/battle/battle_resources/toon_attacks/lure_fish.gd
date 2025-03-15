@@ -53,6 +53,8 @@ func action():
 			trap_gags.append(target.trap)
 			target.trap.activating_lure = self
 			await target.trap.activate()
+			if Util.get_player().stats.has_item('Oldman Lure Turns'):
+				apply_lure(target)
 		else:
 			apply_lure(target)
 	else:
