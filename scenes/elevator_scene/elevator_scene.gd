@@ -15,6 +15,10 @@ var next_floors: Array[FloorVariant] = []
 
 
 func _ready():
+	if Util.floor_number == 5:
+		$ElevatorUI.arrow_left.hide()
+		$ElevatorUI.arrow_right.hide()
+	
 	# Get the player in here or so help me
 	player = Util.get_player()
 	if not player:
@@ -28,6 +32,11 @@ func _ready():
 	player.set_animation('neutral')
 	camera.current = true
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	
+	if SaveFileService.run_file and SaveFileService.run_file.floor_choice:
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+		start_game_floor(SaveFileService.run_file.floor_choice)
+		return
 	
 	# Close the elevator doors
 	elevator.animator.play('open')
@@ -45,11 +54,16 @@ func _ready():
 	get_next_floors()
 
 func start_floor(floor_var: FloorVariant):
+	SaveFileService.run_file.floor_choice = floor_var
+	SaveFileService.save()
 	elevator.animator.play('open')
 	player.turn_to_position($Outside.global_position, 1.5)
 	$ElevatorUI.hide()
 	await camera.exit()
 	
+	start_game_floor(floor_var)
+
+func start_game_floor(floor_var : FloorVariant) -> void:
 	player.scale = Vector3(1, 1, 1)
 	if floor_var.override_scene:
 		SceneLoader.change_scene_to_packed(floor_var.override_scene)

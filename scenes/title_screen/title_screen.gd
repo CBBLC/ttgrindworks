@@ -120,6 +120,8 @@ func _ready() -> void:
 	%ToonPagesScrollButton.options.clear()
 	for i in range(ceil(float(spawned_toons.size()) / MAX_TOONS_PER_PAGE)):
 		%ToonPagesScrollButton.options.append(str("Page ", i+1))
+	
+	Globals.s_title_screen_entered.emit(self)
 
 func _process(delta: float) -> void:
 	if state == MenuState.ROTATING:
@@ -225,7 +227,9 @@ func spawn_toon(character : PlayerCharacter) -> Toon:
 	var toon := TOON.instantiate()
 	toon.toon_dna = character.dna
 	if character.character_name == "RandomToon":
+		randomize()
 		toon.toon_dna.randomize_dna()
+		RandomService.randi_channel('true_random')
 	var static_body := StaticBody3D.new()
 	var collision_shape := CollisionShape3D.new()
 	collision_shape.shape = toon_collision
