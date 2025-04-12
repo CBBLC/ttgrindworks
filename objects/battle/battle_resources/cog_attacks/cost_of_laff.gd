@@ -6,6 +6,6 @@ func action() -> void:
 	manager.s_focus_char.emit(target)
 	target.set_animation("cringe")
 	
-	manager.affect_target(target, 'hp', damage, false)
+	manager.affect_target(target, damage, false)
 	
 	await manager.sleep(2.25)

@@ -3056,7 +3056,6 @@ script = ExtResource("29_rfk4w")
 [connection signal="pressed" from="BattleMenuContainer/BottomRight/SOS" to="." method="open_items"]
 [connection signal="pressed" from="TargetSelect/Buttons/Back" to="TargetSelect" method="arrow_pressed" binds= [-1]]
 [connection signal="s_gag_canceled" from="SelectedGags" to="." method="cancel_gag"]
-[connection signal="s_voucher_used" from="ItemPanel" to="." method="refresh_turns"]
 [connection signal="pressed" from="ItemPanel/BannerSize/CloseButton" to="ItemPanel" method="_exit"]
 
 [editable path="BattleMenuContainer/BottomRight/LockIn"]
